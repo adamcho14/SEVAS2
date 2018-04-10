@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import functions as f
+import config as c
 
 print """Content-type: text/html
 <html>
@@ -16,12 +17,12 @@ print """Content-type: text/html
 print(f.print_form_field(f.select_candidates()))
 
 print """
-<input type="text" name="login" placeholder="Name">
+<input type="hidden" name="login" value="%s">
 <input type="hidden" name="vote" value="0">
 <input type="submit" name ="submit" value="Submit">
 </form>
 
 </body>
-</html>"""
+</html>""" % (c.LOGIN)
 
 

@@ -1,2 +1,4 @@
 #!/usr/bin/env python
-CAND_NUM = 3
+CAND_NUM = 2
+
+LOGIN = "adam"
