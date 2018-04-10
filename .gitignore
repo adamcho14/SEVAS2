@@ -9,7 +9,7 @@ test.html
 test_cgi.py
 test_form.py
 test_urlencode.py
-voting.py
+comments.py
 _pycache_
 
 
