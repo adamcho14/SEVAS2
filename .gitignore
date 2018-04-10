@@ -1,0 +1,14 @@
+*.sqlite
+*.db
+*.pyc
+simple_server.py
+test.html
+test_cgi.py
+test_form.py
+test_urlencode.py
+voting.py
+_pycache_
+*.xml
+*.iml
+
+
