@@ -41,7 +41,7 @@ function createVote(radios) {
 
 function wipeOut(radios) {
     for (i = 0; i < radios.length; i++) {
-        radios[i].value = "4";
+        radios[i].value = "";
     }
 }
 
