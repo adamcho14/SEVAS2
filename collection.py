@@ -16,15 +16,28 @@ result = cursor.fetchall()
 
 print """Content-type: text/html
 
-The form input is below...<br/>"""
-print login
-print vote
+"""
+
+#print login
+#print vote
 #print f_val
 #print result
 
-#if result != [(0,)]:
+if result != [(0,)]:
     #conn = sqlite3.connect("votes.db")
-cursor.execute("INSERT INTO votes VALUES(?, ?)", (login, vote,))
+    cursor.execute("SELECT COUNT(*) FROM votes WHERE login=?", (login,))
+    result2 = cursor.fetchall()
+    if result2 == [(0,)]:
+        cursor.execute("INSERT INTO votes VALUES(?, ?)", (login, vote,))
+    else:
+        cursor.execute("UPDATE votes SET vote = ? WHERE login = ?", (vote, login,))
+    connection.commit()
+    print """You have successfully casted your vote."""
+
+else:
+    print """Sorry, you are not allowed to vote. If you think this is a mistake, please, ask Lamparen for help"""
+
+connection.close()
 
 
 

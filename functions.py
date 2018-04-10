@@ -8,6 +8,8 @@ def select_candidates():
     cursor.execute("SELECT * FROM candidates")
     result = cursor.fetchall()
 
+    connection.close()
+
     return result
 
 
