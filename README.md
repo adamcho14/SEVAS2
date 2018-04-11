@@ -22,8 +22,6 @@ in any available Internet browser.
 * _Apache_ server
 * _SQLite_ database management system (might be changed to _PostgreSQL_ or _MySQL_)
 
-
-
 # What is done or partially done
 * form used by voters to cast their votes
 * form validation and vote formation
