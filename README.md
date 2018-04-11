@@ -5,8 +5,8 @@ for Academic Senate in Faculty of Physics, Mathematics and Informatics,
 Comenius University in Bratislava (FMPH).
 
 The system provides a handy user interface run in an Internet browser. 
-It enables students to cast their votes in elections to the student senate 
-just using their PC or smartphone. When voting has ended, the votes are counted 
+It enables students to cast their votes in elections to the Student Senate 
+just using their PCs or smartphones. When voting has ended, the votes are counted 
 and the final results are published.
 
 The system ought to be minimal, yet reliable, so that it can run 
@@ -14,8 +14,8 @@ in any available Internet browser.
 
 # What technologies are used
 
-* _Python_ as the primary backend programming language
-* _JavaScript_, _HTML_ and _CSS_ for the frontend
+* _Python_ as the primary back-end programming language
+* _JavaScript_, _HTML_ and _CSS_ for the front end
 * _S/MIME_ protocol
 * _Cosign_ to provide logging in
 * _Shamir's Secret-Sharing Sheme_

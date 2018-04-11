@@ -4,12 +4,8 @@
 *.xml
 *.iml
 *.idea
-simple_server.py
-test.html
-test_cgi.py
-test_form.py
-test_urlencode.py
-comments.py
+obsolete
 _pycache_
+local/votes.txt
 
 
