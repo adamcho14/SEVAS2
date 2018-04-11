@@ -20,6 +20,6 @@ handler.cgi_directories = ["/"]
 autServer = http.server.HTTPServer((address, port), handler)
 #autServer.socket = ssl.wrap_socket(autServer.socket, None, None, True)
 print("Serving at port", port)
-print("Acces voting by clicking on localhost:" + str(port) + "/voting.py")
+print("Acces voting by clicking on localhost:" + str(port) + "/login.py")
 autServer.serve_forever()
 

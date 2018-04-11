@@ -12,6 +12,14 @@ def select_candidates():
 
     return result
 
+def select_voters(login):
+    connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
+    cursor = connection.cursor()
+    cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
+    result = cursor.fetchall()
+
+    return result
+
 
 def print_form_field(data):
     for i in data:

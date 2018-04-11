@@ -2,8 +2,24 @@
 
 import functions as f
 import config as c
+import cgi
 
-print """Content-type: text/html
+form = cgi.FieldStorage()
+login = form.getvalue('login')
+
+if f.select_voters(login) == [(0,)]:
+    print """Content-type: text/html
+
+You are not allowed to vote. Please, log in again.
+
+<form method="post" action="login.py">
+<input type="submit" name ="return" value="Return">
+</form>
+"""
+
+else:
+
+    print """Content-type: text/html
 <html>
 <head>
 
@@ -14,15 +30,15 @@ print """Content-type: text/html
 <body>
 
 <form name="voting" method="post" action="collection.py" onsubmit="return processForm()">"""
-print(f.print_form_field(f.select_candidates()))
+    print(f.print_form_field(f.select_candidates()))
 
-print """
+    print """
 <input type="hidden" name="login" value="%s">
 <input type="hidden" name="vote" value="0">
 <input type="submit" name ="submit" value="Submit">
 </form>
 
 </body>
-</html>""" % (c.LOGIN)
+</html>""" % (login)
 
 

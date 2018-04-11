@@ -1,6 +1,6 @@
 # SEVAS
 **SEVAS** (**S**ystem of **E**lectronic **V**oting for **A**cademic **S**enate) 
-is a complex electronic election system developed 
+is an open-source project of a complex electronic election system developed 
 for Academic Senate in Faculty of Physics, Mathematics and Informatics,
 Comenius University in Bratislava (FMPH).
 
