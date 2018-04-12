@@ -29,7 +29,8 @@ else:
 </head>
 <body>
 
-<form name="voting" method="post" action="collection.py" onsubmit="return processForm()">"""
+<p>Zvolte maximalne %s kanidatov</p>
+<form name="voting" method="post" action="collection.py" onsubmit="return processForm(%s)">""" % (str(c.CAND_NUM), str(c.CAND_NUM))
     print(f.print_form_field(f.select_candidates()))
 
     print """
