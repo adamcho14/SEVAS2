@@ -26,11 +26,11 @@ in any available Internet browser.
 * form used by voters to cast their votes
 * form validation and vote formation
 * vote collection
+* vote counting
 
 # What is to be done
 * logging in using _Cosign_
 * form encryption using _S/MIME_ protocol for E-mail communication
-* vote counting
 * user interface for the electoral board
 * final database model
 * deployment in the structures of FMPH
