@@ -3,11 +3,6 @@ import cgitb
 import ssl  # https://docs.python.org/3.0/library/ssl.html
 
 # https://cit.uniba.sk/wiki/doku.php?id=public/jas/cosign
-
-#class messHandler(http.server.BaseHTTPRequestHandler):
- #   def do_POST(self):
-        #cAddress = self.client_address
-
 # https://www.piware.de/2011/01/creating-an-https-server-in-python/
 
 cgitb.enable()
