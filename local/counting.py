@@ -56,7 +56,7 @@ election_dk = {}
 candidates = select_candidates()
 vote_values = [] #list of dictionaries containing votes
 
-print(candidates)
+#print(candidates)
 
 for i in votes:
     vote_values.append(get_values(parse(decrypt(i[0]))))
@@ -73,9 +73,19 @@ for c in candidates:
         elif v[c[0]] == 3:
             election_dk[c[0]] += 1
 
-for i in votes:
-    print(get_values(parse(decrypt(i[0]))))
+#for i in votes:
+    #print(get_values(parse(decrypt(i[0]))))
 
-print("Yes:" + str(election_yes))
-print("No:" + str(election_no))
-print("Zdrzal sa:" + str(election_dk))
+#print("Áno:" + str(election_yes))
+#print("Nie:" + str(election_no))
+#print("Zdržal sa:" + str(election_dk))
+
+#print the final results
+
+print("Toto sú výsledky volieb:")
+for c in candidates:
+    print()
+    print(c[1], c[2])
+    print("Áno:", election_yes[c[0]])
+    print("Nie:", election_no[c[0]])
+    print("Zdržali sa:", election_dk[c[0]])
