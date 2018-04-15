@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf-8
 
 import functions as f
 import config as c
@@ -29,7 +30,7 @@ else:
 </head>
 <body>
 
-<p>Zvolte maximalne %s kanidatov</p>
+<p>Zvoľte maximálne %s kandidátov</p>
 <form name="voting" method="post" action="collection.py" onsubmit="return processForm(%s)">""" % (str(c.CAND_NUM), str(c.CAND_NUM))
     print(f.print_form_field(f.select_candidates()))
 

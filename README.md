@@ -27,7 +27,7 @@ in any available Internet browser.
 * form validation and vote formation
 * vote collection
 * vote counting
-* user interface for the electoral board
+* user interface for the election commission
 
 # What is to be done
 * logging in using _Cosign_

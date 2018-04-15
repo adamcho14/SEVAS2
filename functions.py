@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf-8
 import sqlite3
 
 #this function selects candidates from the database
@@ -31,7 +32,7 @@ def print_form_field(data):
 
         print '<fieldset>'
         print '<legend>%s %s %s</legend>' % (idc, first, last)
-        print '<input type = "radio" name = "%s" id="radios" value = "1"> Ano ' % (idc)
+        print '<input type = "radio" name = "%s" id="radios" value = "1"> Áno ' % (idc)
         print '<input type = "radio" name = "%s" id="radios" value = "2"> Nie ' % (idc)
-        print '<input type = "radio" name = "%s" id="radios" value = "3" checked> Zdrzal som sa' % (idc)
+        print '<input type = "radio" name = "%s" id="radios" value = "3" checked> Zdržal som sa' % (idc)
         print '</fieldset>'

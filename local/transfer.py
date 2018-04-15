@@ -9,7 +9,11 @@ cursor.execute("SELECT vote FROM votes")
 result = cursor.fetchall()
 connection.close()
 
-print(result)
+for v in result:
+    if v[0] == '0':
+        result.remove(v)
+
+#print(result)
 
 with open('votes.txt', 'w') as file:
     json.dump(result, file)
