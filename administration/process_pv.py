@@ -58,8 +58,3 @@ else:
     </form>
 
     </body>""" % (UKlogin)
-
-
-
-
-#print(result)

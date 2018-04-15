@@ -2,7 +2,7 @@
 # coding: utf-8
 import sqlite3
 
-#this function selects candidates from the database
+# this function selects candidates from the database
 def select_candidates():
     connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/candidates.sqlite")
     cursor = connection.cursor()
@@ -26,9 +26,9 @@ def select_voters(login):
 
 def print_form_field(data):
     for i in data:
-        idc = i[0] #candidate ID from the db
-        first = i[1] #first name
-        last = i[2] #last name
+        idc = i[0] # candidate ID from the db
+        first = i[1] # first name
+        last = i[2] # last name
 
         print '<fieldset>'
         print '<legend>%s %s %s</legend>' % (idc, first, last)

@@ -14,14 +14,11 @@ function countRadios(radios) {
 }
 
 function validateForm(form, max) {
-    //var max = 2;
-    //var num = countRadios(form);
     if (countRadios(form) > max) {
         alert('Zvolili ste veľa kandidátov. Môžete najviac ' + max + '.');
         return false;
     }
     return true;
-    //var x = document.forms["voting"];
 }
 
 

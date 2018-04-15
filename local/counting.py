@@ -1,9 +1,11 @@
 #!/usr/bin/env python
+# coding: utf-8
 
 import json
 import sqlite3
 
-#this function selects candidates from the database
+
+# this function selects candidates from the database
 def select_candidates():
     connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/candidates.sqlite")
     cursor = connection.cursor()
@@ -18,6 +20,7 @@ def select_candidates():
 def decrypt(s):
     return s
 
+
 # this function creates a list out of given string
 def parse(s):
     return list(s)
@@ -28,35 +31,32 @@ def validate(l):
  return True
 
 
-#this function gets values in given list. List must be validated beforehand
+# this function gets values in given list. List must be validated beforehand
 def get_values(l):
-    #print(len(l))
     values = {}
-    j = 1 #prve cislo v stringu
+    j = 1 # the first number in the string
     while j < len(l):
         key = 0
         val = 0
         while l[j] != '#':
             key = 10*key + int(l[j])
             j += 1
-        j += 1 #prve cislo po #
+        j += 1 # the first number afer "#"
         while l[j] != '>':
             val = 10*val + int(l[j])
             j += 1
         values[key] = val
-        j += 2 #prve cislo po <... preskakujem ><
+        j += 2 # the first number after "<" ... need to jump "><"
     return values
 
 with open('votes.txt', 'r') as file:
-    votes = json.load(file) #creates a list of votes out of the json file
+    votes = json.load(file) # creates a list of votes out of the json file
 
 election_yes = {}
 election_no = {}
 election_dk = {}
 candidates = select_candidates()
-vote_values = [] #list of dictionaries containing votes
-
-#print(candidates)
+vote_values = [] # list of dictionaries containing votes
 
 for i in votes:
     vote_values.append(get_values(parse(decrypt(i[0]))))
@@ -73,15 +73,7 @@ for c in candidates:
         elif v[c[0]] == 3:
             election_dk[c[0]] += 1
 
-#for i in votes:
-    #print(get_values(parse(decrypt(i[0]))))
-
-#print("Áno:" + str(election_yes))
-#print("Nie:" + str(election_no))
-#print("Zdržal sa:" + str(election_dk))
-
-#print the final results
-
+# print the final results
 print("Toto sú výsledky volieb:")
 for c in candidates:
     print()
