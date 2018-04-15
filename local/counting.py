@@ -1,7 +1,19 @@
 #!/usr/bin/env python
 
 import json
-import config as c
+import sqlite3
+
+#this function selects candidates from the database
+def select_candidates():
+    connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/candidates.sqlite")
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM candidates")
+    result = cursor.fetchall()
+
+    connection.close()
+
+    return result
+
 
 def decrypt(s):
     return s
@@ -36,7 +48,34 @@ def get_values(l):
     return values
 
 with open('votes.txt', 'r') as file:
-    votes = json.load(file)
+    votes = json.load(file) #creates a list of votes out of the json file
+
+election_yes = {}
+election_no = {}
+election_dk = {}
+candidates = select_candidates()
+vote_values = [] #list of dictionaries containing votes
+
+print(candidates)
+
+for i in votes:
+    vote_values.append(get_values(parse(decrypt(i[0]))))
+
+for c in candidates:
+    election_yes[c[0]] = 0
+    election_no[c[0]] = 0
+    election_dk[c[0]] = 0
+    for v in vote_values:
+        if v[c[0]] == 1:
+            election_yes[c[0]] += 1
+        elif v[c[0]] == 2:
+            election_no[c[0]] += 1
+        elif v[c[0]] == 3:
+            election_dk[c[0]] += 1
 
 for i in votes:
     print(get_values(parse(decrypt(i[0]))))
+
+print("Yes:" + str(election_yes))
+print("No:" + str(election_no))
+print("Zdrzal sa:" + str(election_dk))

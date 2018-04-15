@@ -18,6 +18,8 @@ def select_voters(login):
     cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
     result = cursor.fetchall()
 
+    connection.close()
+
     return result
 
 

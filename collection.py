@@ -7,7 +7,7 @@ import functions
 form = cgi.FieldStorage()
 login = form.getvalue('login')
 vote = form.getvalue('vote')
-f_val = form.getvalue('1')
+#f_val = form.getvalue('1')
 
 connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
 cursor = connection.cursor()

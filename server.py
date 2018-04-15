@@ -16,7 +16,7 @@ address = ""
 port = 8000
 
 handler = http.server.CGIHTTPRequestHandler
-handler.cgi_directories = ["/"]
+handler.cgi_directories = ["/", "/administration"]
 autServer = http.server.HTTPServer((address, port), handler)
 #autServer.socket = ssl.wrap_socket(autServer.socket, None, None, True)
 print("Serving at port", port)
