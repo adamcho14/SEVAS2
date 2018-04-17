@@ -13,6 +13,7 @@ function countRadios(radios) {
    return num;
 }
 
+// TODO: Serious issue! In voting form, a voter can change their login by editing the source code. It enables them to vote as somebody else!!!
 function validateForm(form, max) {
     if (countRadios(form) > max) {
         alert('Zvolili ste veľa kandidátov. Môžete najviac ' + max + '.');

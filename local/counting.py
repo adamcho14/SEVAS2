@@ -4,6 +4,8 @@
 import json
 import sqlite3
 
+CAND_NUM = 2
+
 
 # this function selects candidates from the database
 def select_candidates():
@@ -26,40 +28,83 @@ def parse(s):
     return list(s)
 
 
-# this function validates given list
+# this function validates given list. It only checks if it is in the vote form
+# state values:
+# 0 ... we expect '<',
+# 1 ... we expect the first digit of key,
+# 2 ... we expect '#' or a digit,
+# 3 ... we expect the first digit of value,
+# 4 ... we expect '>' or a digit
 def validate(l):
- return True
+    state = 0
+    for i in l:
+        if state == 0:  # checking '<'
+            if i != '<':
+                return False
+            state = 1  # continue by checking key
+        elif state == 1:  # we need to have at least one digit after '<'
+            if not i.isdigit():
+                return False
+            state = 2
+        elif state == 2:  # now we can have either a digit or '#'
+            if i != '#' and not i.isdigit():
+                return False
+            if i == '#':
+                state = 3
+        elif state == 3:  # after '#' we expect a digit
+            if not i.isdigit():
+                return False
+            state = 4
+        elif state == 4:  # now we can have either a digit or '>'
+            if i != '>' and not i.isdigit():
+                return False
+            if i == '>':
+                state = 0
+    return True
 
 
-# this function gets values in given list. List must be validated beforehand
+# this function gets values in given list. List must be validated beforehand.
+# it also checks whether there is no more yeses than allowed. If there is, it changes the vote to 0.
 def get_values(l):
+    if not validate(l):
+        return 0
+
+    num = 0  # checks the number of yeses
     values = {}
-    j = 1 # the first number in the string
+    j = 1  # the first number in the string
     while j < len(l):
         key = 0
         val = 0
         while l[j] != '#':
             key = 10*key + int(l[j])
             j += 1
-        j += 1 # the first number afer "#"
+        j += 1  # the first number afer "#"
         while l[j] != '>':
             val = 10*val + int(l[j])
             j += 1
+        if val == 1:
+            num += 1
         values[key] = val
-        j += 2 # the first number after "<" ... need to jump "><"
+        j += 2  # the first number after "<" ... need to jump "><"
+
+    if num > CAND_NUM:
+        return 0
+
     return values
 
 with open('votes.txt', 'r') as file:
-    votes = json.load(file) # creates a list of votes out of the json file
+    votes = json.load(file)  # creates a list of votes out of the json file
 
 election_yes = {}
 election_no = {}
 election_dk = {}
 candidates = select_candidates()
-vote_values = [] # list of dictionaries containing votes
+vote_values = []  # list of dictionaries containing votes
 
 for i in votes:
-    vote_values.append(get_values(parse(decrypt(i[0]))))
+    new_vote = get_values(parse(decrypt(i[0])))
+    if new_vote != 0:
+        vote_values.append(new_vote)
 
 for c in candidates:
     election_yes[c[0]] = 0
