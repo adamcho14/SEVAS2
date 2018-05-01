@@ -5,31 +5,39 @@ import functions as f
 import config as c
 import cgi
 from os import environ
-#import rsa
-#import base64
+import rsa
+import base64
 
-form = cgi.FieldStorage()
-login = form.getvalue('login')
+#form = cgi.FieldStorage()
+#login = form.getvalue('login')
 
-#with open('administration/public.pem', 'r') as public:
-#    data = public.read()
-#pubkey = rsa.PublicKey.load_pkcs1(base64.b64decode(data))
-#encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
-
+#  variable sent from the server
 #if environ.has_key('REMOTE_USER'):
     #login = environ['REMOTE_USER']
 
-if f.select_voters(login) == [(0,)]:
-    print """Content-type: text/html
+#these two lines must be deleted before release
+#else:
+    #login = "skuska"
 
-You are not allowed to vote. Please, log in again.
+#if f.select_voters(login) == [(0,)]:
+    #print """Content-type: text/html
 
-<form method="post" action="login.py">
-<input type="submit" name ="return" value="Return">
-</form>
-"""
+#You are not allowed to vote. Please, log in again.
 
-else:
+#<form method="post" action="login.py">
+#<input type="submit" name ="return" value="Return">
+#</form>
+#"""
+
+# variable sent from the server
+
+if environ.has_key('REMOTE_USER'):
+    login = environ['REMOTE_USER']
+
+    with open('administration/public.pem', 'r') as public:
+        data = public.read()
+    pubkey = rsa.PublicKey.load_pkcs1(base64.b64decode(data))
+    encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
 
     print """Content-type: text/html
 <html>
@@ -37,15 +45,15 @@ else:
 
 <meta charset="UTF-8">
 <script type="text/javascript" src="static/conf.js">
-<script type="text/javascript" src="static/addressparser.js"></script>
-<script type="text/javascript" src="static/mimeparser-tzabbr.js"></script>
-<script type="text/javascript" src="static/mimeparser.js"></script>
-<script type="text/javascript" src="static/emailjs-mime-codec.js"></script>
-<script type="text/javascript" src="static/emailjs-mime-types.js"></script>
-<script type="text/javascript" src="static/emailjs-addressparser.js"></script>
-<script type="text/javascript" src="static/punycode.js"></script>
-<script type="text/javascript" src="static/emailjs-mime-builder.js"></script>
-<script type="text/javascript" src="static/SMIMEEncryptionExample.js"></script>
+<script type="text/javascript" src="static/pkijs/addressparser.js"></script>
+<script type="text/javascript" src="static/pkijs/mimeparser-tzabbr.js"></script>
+<script type="text/javascript" src="static/pkijs/mimeparser.js"></script>
+<script type="text/javascript" src="static/pkijs/emailjs-mime-codec.js"></script>
+<script type="text/javascript" src="static/pkijs/emailjs-mime-types.js"></script>
+<script type="text/javascript" src="static/pkijs/emailjs-addressparser.js"></script>
+<script type="text/javascript" src="static/pkijs/punycode.js"></script>
+<script type="text/javascript" src="static/pkijs/emailjs-mime-builder.js"></script>
+<script type="text/javascript" src="static/pkijs/SMIMEEncryptionExample.js"></script>
 <script type="text/javascript" src="static/form_processing.js">
 </script>
 </head>
@@ -60,9 +68,26 @@ else:
 <input type="hidden" name="vote" value="0">
 <input type="submit" name ="submit" value="">
 </form>
-<button type="button" onclick="processForm();">Vytvor hlas</button>
+<button type="button" onclick="processForm();">Vytvor hlas</button><br>
 <textarea rows="10" cols="50" id="display_vote">Tvoj zašifrovaný hlas</textarea>
 </body>
-</html>""" % (login)
+</html>""" % (encryptedLogin)
+
+else:
+    print """Content-type: text/html
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+</head>
+<body>
+<p>Nie ste platne prihlásení. Skúste to znova.</p>
+
+<form method="post" action="https://login.uniba.sk">
+<input type="submit" name ="return" value="Prihlásiť sa">
+</form>
+</body>
+</html>"""
 
 

@@ -15,7 +15,7 @@ handler.cgi_directories = ["/", "/administration"]
 autServer = http.server.HTTPServer((address, port), handler)
 #autServer.socket = ssl.wrap_socket(autServer.socket, None, None, True)
 print("Serving at port", port)
-print("Access voting by typing this to your browser: localhost:" + str(port) + "/login.py")
+print("Access voting by typing this to your browser: localhost:" + str(port) + "/index.py")
 print("If you want to access paper voting management, type: localhost:" + str(port) + "/administration/paper_voting.py")
 autServer.serve_forever()
 
