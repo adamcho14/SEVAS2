@@ -28,10 +28,10 @@ in any available Internet browser.
 * vote collection
 * vote counting
 * user interface for the election commission
+* form encryption using _S/MIME_ protocol for E-mail communication
+* final database model
 
 # What is to be done
 * logging in using _Cosign_
-* form encryption using _S/MIME_ protocol for E-mail communication
-* final database model
 * deployment in the structures of FMPH
 * features I can't remember while writing this
