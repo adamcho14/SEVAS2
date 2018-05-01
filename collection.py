@@ -22,6 +22,14 @@ cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
 result = cursor.fetchall()
 
 print """Content-type: text/html
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
 
 """
 
@@ -33,13 +41,18 @@ if result != [(0,)]:
     else:
         cursor.execute("UPDATE votes SET vote = ? WHERE login = ?", (vote, login,))
     connection.commit()
-    print """You have successfully casted your vote."""
-    print(vote)
+    print """Úspešne si poslal svoj hlas.
+    <textarea rows="10" cols="50" id="display_vote">%s</textarea>""" % vote
 
 else:
-    print """Sorry, you are not allowed to vote. If you think this is a mistake, please, ask Lamparen for help"""
+    print """Prepáč, ale nemôžeš hlasovať. Ak si myslíš, že to je chyba, prosím, obráť sa na Lampáreň!"""
 
 connection.close()
+
+
+print """</body>
+
+</html>"""
 
 
 

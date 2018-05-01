@@ -58,10 +58,10 @@ else:
     print """
 <input type="hidden" name="login" value="%s">
 <input type="hidden" name="vote" value="0">
-<input type="submit" name ="submit" value="Pošli hlas">
+<input type="submit" name ="submit" value="">
 </form>
-<a onclick="processForm();">Vytvor hlas</a>
-<p id="display_vote">Tvoj zašifrovaný hlas</p>
+<button type="button" onclick="processForm();">Vytvor hlas</button>
+<textarea rows="10" cols="50" id="display_vote">Tvoj zašifrovaný hlas</textarea>
 </body>
 </html>""" % (login)
 

@@ -81,7 +81,7 @@ async function processForm(max) {
     var login = x["login"].value;
     //var vote = smimeEncrypt(createVote(x));
     wipeOut(x);
-    x["submit"].value = "Submit";
+    x["submit"].value = "Pošli hlas";
     x["login"].value = login;
     //x["vote"].value = vote;
     await smimeEncrypt(createVote(x));
