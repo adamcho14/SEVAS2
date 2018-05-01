@@ -6,17 +6,24 @@
 from os import environ
 import cgi, cgitb
 
-if environ.has_key('HTTP_COOKIE'):
-    for cookie in map(environ['HTTP_COOKIE'].strip(), environ['HTTP_COOKIE'].split(';')):
-        (key, value) = cookie.split('=')
-        if key == "REMOTE_USER":
-            login = value
+login = ""
 
-else:
-    print """Content-type: text/html
+#if environ.has_key('HTTP_COOKIE'):
+#    cookies = environ['HTTP_COOKIE'].strip()
+ #   cookies = cookies.split(';')
+ #   for cookie in cookies:
+ #       (key, value) = cookie.split('=')
+  #      if key == "REMOTE_USER":
+  #          login = value
 
-    <form method="post" action="voting.py">
-    <input type="text" name="login" placeholder="Log in" required>
-    <br/>
-    <input type="submit" value="Submit">
-    </form>"""
+if environ.has_key('REMOTE_USER'):
+    login = environ['REMOTE_USER']
+
+
+print """Content-type: text/html
+
+<form method="post" action="voting.py">
+<input type="text" name="login" placeholder="Log in" value ="%s" required>
+<br/>
+<input type="submit" value="Submit">
+</form>""" % login
