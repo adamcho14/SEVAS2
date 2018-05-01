@@ -18,7 +18,7 @@ in any available Internet browser.
 * _JavaScript_, _HTML_ and _CSS_ for the front end
 * _S/MIME_ protocol
 * _Cosign_ to provide logging in
-* _Shamir's Secret-Sharing Sheme_
+* _Shamir's Secret-Sharing Scheme_
 * _Apache_ server
 * _SQLite_ database management system (might be changed to _PostgreSQL_ or _MySQL_)
 
@@ -30,8 +30,8 @@ in any available Internet browser.
 * user interface for the election commission
 * form encryption using _S/MIME_ protocol for E-mail communication
 * final database model
+* logging in using _Cosign_
 
 # What is to be done
-* logging in using _Cosign_
 * deployment in the structures of FMPH
 * features I can't remember while writing this
