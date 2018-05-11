@@ -5,8 +5,8 @@ import functions as f
 import config as c
 import cgi
 from os import environ
-import rsa
-import base64
+#import rsa
+#import base64
 
 #form = cgi.FieldStorage()
 #login = form.getvalue('login')
@@ -31,13 +31,16 @@ import base64
 
 # variable sent from the server
 
-if environ.has_key('REMOTE_USER'):
-    login = environ['REMOTE_USER']
+if True:
+#if environ.has_key('REMOTE_USER'):
+    #login = environ['REMOTE_USER']
 
-    with open('administration/public.pem', 'r') as public:
-        data = public.read()
-    pubkey = rsa.PublicKey.load_pkcs1(base64.b64decode(data))
-    encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
+    #with open('administration/public.pem', 'r') as public:
+        #data = public.read()
+    #pubkey = rsa.PublicKey.load_pkcs1(base64.b64decode(data))
+    #encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
+
+    encryptedLogin = "skuska"
 
     print """Content-type: text/html
 <html>
@@ -66,12 +69,12 @@ if environ.has_key('REMOTE_USER'):
     print """
 <input type="hidden" name="login" value="%s">
 <input type="hidden" name="vote" value="0">
-<input type="submit" name ="submit" value="">
+<input type="hidden" name ="submit" value="">
 </form>
-<button type="button" onclick="processForm();">Vytvor hlas</button><br>
+<button type="button" onclick="processForm(%s);">Vytvor hlas</button><br>
 <textarea rows="10" cols="50" id="display_vote">Tvoj zašifrovaný hlas</textarea>
 </body>
-</html>""" % (encryptedLogin)
+</html>""" % (encryptedLogin, str(c.CAND_NUM))
 
 else:
     print """Content-type: text/html

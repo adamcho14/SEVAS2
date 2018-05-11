@@ -3,18 +3,18 @@
 
 import cgi
 import sqlite3
-import rsa
-import base64
+#import rsa
+#import base64
 
 form = cgi.FieldStorage()
-encryptedLogin = form.getvalue('login')
-#login = form.getvalue('login')
+#encryptedLogin = form.getvalue('login')
+login = form.getvalue('login')
 vote = form.getvalue('vote')
 
-with open('administration/private.pem', 'r') as private:
-    data = private.read()
-privkey = rsa.PrivateKey.load_pkcs1(base64.b64decode(data))
-login = rsa.encrypt(encryptedLogin, privkey)
+#with open('administration/private.pem', 'r') as private:
+    #data = private.read()
+#privkey = rsa.PrivateKey.load_pkcs1(base64.b64decode(data))
+#login = rsa.encrypt(encryptedLogin, privkey)
 
 connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
 cursor = connection.cursor()
@@ -33,15 +33,25 @@ print """Content-type: text/html
 
 """
 
+sent = False
+
 if result != [(0,)]:
     cursor.execute("SELECT COUNT(*) FROM votes WHERE login=?", (login,))
     result2 = cursor.fetchall()
     if result2 == [(0,)]:
         cursor.execute("INSERT INTO votes VALUES(?, ?)", (login, vote,))
+        sent = True
     else:
-        cursor.execute("UPDATE votes SET vote = ? WHERE login = ?", (vote, login,))
+        cursor.execute("SELECT CASE WHEN vote=0 THEN 0 ELSE 1 END FROM votes WHERE login=?", (login,))
+        result3 = cursor.fetchall()
+        if result3 ==[(0,)]:
+            print """Už ste hlasovali papierovo. Nemožno už hlasovať elektronicky."""
+        else:
+            cursor.execute("UPDATE votes SET vote = ? WHERE login = ?", (vote, login,))
+            sent = True
     connection.commit()
-    print """Úspešne si poslal svoj hlas.
+    if sent:
+        print """Úspešne si poslal svoj hlas.
     <textarea rows="10" cols="50" id="display_vote">%s</textarea>""" % vote
 
 else:
