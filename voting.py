@@ -5,40 +5,17 @@ import functions as f
 import config as c
 import cgi
 from os import environ
-#import rsa
-#import base64
+import rsa
+import base64
 
-#form = cgi.FieldStorage()
-#login = form.getvalue('login')
+#if True:
+if environ.has_key('REMOTE_USER'):
+    login = environ['REMOTE_USER']
 
-#  variable sent from the server
-#if environ.has_key('REMOTE_USER'):
-    #login = environ['REMOTE_USER']
-
-#these two lines must be deleted before release
-#else:
-    #login = "skuska"
-
-#if f.select_voters(login) == [(0,)]:
-    #print """Content-type: text/html
-
-#You are not allowed to vote. Please, log in again.
-
-#<form method="post" action="login.py">
-#<input type="submit" name ="return" value="Return">
-#</form>
-#"""
-
-# variable sent from the server
-
-if True:
-#if environ.has_key('REMOTE_USER'):
-    #login = environ['REMOTE_USER']
-
-    #with open('administration/public.pem', 'r') as public:
-        #data = public.read()
-    #pubkey = rsa.PublicKey.load_pkcs1(base64.b64decode(data))
-    #encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
+    with open('administration/public.pem', 'r') as public:
+        data = public.read()
+    pubkey = rsa.PublicKey.load_pkcs1(base64.b64decode(data))
+    encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
 
     encryptedLogin = "skuska"
 

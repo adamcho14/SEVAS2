@@ -15,15 +15,6 @@ def select_voters(login):
 
     return result
 
-
-def make_having_voted(login):
-    connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
-    cursor = connection.cursor()
-    cursor.execute("UPDATE voters SET paper_voted='1' WHERE login=?", (login,))
-    connection.commit()
-
-    connection.close()
-
 form = cgi.FieldStorage()
 UKlogin = form.getvalue('login')
 
@@ -46,7 +37,6 @@ if len(result) == 0:
     </body>"""
 
 else:
-    make_having_voted(UKlogin)
     print """<body>
 
     <p>Zaregistrujte voličov papierový hlas</p>
