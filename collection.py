@@ -11,15 +11,17 @@ encryptedLogin = form.getvalue('login')
 #login = form.getvalue('login')
 vote = form.getvalue('vote')
 
-with open('administration/private.pem', 'r') as private:
+with open('administration/private.pem', 'rb') as private:
     data = private.read()
-privkey = rsa.PrivateKey.load_pkcs1(base64.b64decode(data))
-login = rsa.encrypt(encryptedLogin, privkey)
+privkey = rsa.PrivateKey.load_pkcs1(data)
+encryptedLogin = base64.b64decode(encryptedLogin)
+login = rsa.decrypt(encryptedLogin, privkey)
 
-connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
+connection = sqlite3.connect("db/persons.sqlite")
 cursor = connection.cursor()
 cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
 result = cursor.fetchall()
+connection.close()
 
 print """Content-type: text/html
 <html>
@@ -34,8 +36,9 @@ print """Content-type: text/html
 """
 
 sent = False
-
 if result != [(0,)]:
+    connection = sqlite3.connect("db/votes.sqlite")
+    cursor = connection.cursor()
     cursor.execute("SELECT COUNT(*) FROM votes WHERE login=?", (login,))
     result2 = cursor.fetchall()
     if result2 == [(0,)]:
@@ -60,7 +63,9 @@ else:
 connection.close()
 
 
-print """</body>
+print """
+<a href=cosign/coslogout.php?backurl=/index.py>Odhlásiť sa</a>
+</body>
 
 </html>"""
 

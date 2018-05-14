@@ -3,13 +3,25 @@
 
 import json
 import sqlite3
+from M2Crypto import BIO, SMIME, X509
+import io
+import binascii
 
 CAND_NUM = 2
 
 
+def pkcs7pad(s):
+    s = s.encode('utf-8')
+    out = io.StringIO()
+    val = 16 - (len(s) % 16)
+    for _ in range(val):
+        out.write('%02x' % val)
+    return s + binascii.unhexlify(out.getvalue())
+
+
 # this function selects candidates from the database
 def select_candidates():
-    connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/candidates.sqlite")
+    connection = sqlite3.connect("../db/persons.sqlite")
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM candidates")
     result = cursor.fetchall()
@@ -20,7 +32,16 @@ def select_candidates():
 
 
 def decrypt(s):
-    return s
+    mime = SMIME.SMIME()
+
+    mime.load_key('private_key.pem', 'certificate.pem')
+    #out = BIO.MemoryBuffer()
+    #mime.write(out, s)
+    with open("tmp.p7", 'w') as f:
+        #f.write(out.read())
+        f.write(s)
+    p7, data = SMIME.smime_load_pkcs7("encrypt.p7")
+    return mime.decrypt(p7)
 
 
 # this function creates a list out of given string
@@ -60,7 +81,10 @@ def validate(l):
                 return False
             if i == '>':
                 state = 0
-    return True
+    if state == 0:  # the vote has to end with '>'
+        return True
+    else:
+        return False
 
 
 # this function gets values in given list. List must be validated beforehand.
@@ -78,7 +102,7 @@ def get_values(l):
         while l[j] != '#':
             key = 10*key + int(l[j])
             j += 1
-        j += 1  # the first number afer "#"
+        j += 1  # the first number after "#"
         while l[j] != '>':
             val = 10*val + int(l[j])
             j += 1

@@ -6,7 +6,7 @@ import sqlite3
 
 
 def select_voters(login):
-    connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
+    connection = sqlite3.connect("../db/persons.sqlite")
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM voters WHERE login=?", (login,))
     result = cursor.fetchall()
@@ -39,7 +39,7 @@ if len(result) == 0:
 else:
     print """<body>
 
-    <p>Zaregistrujte voličov papierový hlas</p>
+    <p>Zaregistrujte voličovi %s papierový hlas</p>
 
     <form method="post" action="../collection.py">
     <input type="hidden" name="login" value="%s">
@@ -47,4 +47,4 @@ else:
     <input type="submit" value="Submit">
     </form>
 
-    </body>""" % (UKlogin)
+    </body>""" % (UKlogin, UKlogin)

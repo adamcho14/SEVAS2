@@ -3,7 +3,7 @@
 import json
 import sqlite3
 
-connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
+connection = sqlite3.connect("../db/votes.sqlite")
 cursor = connection.cursor()
 cursor.execute("SELECT vote FROM votes")
 result = cursor.fetchall()

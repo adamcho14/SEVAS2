@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-print """Content-type: text/html
+import cgi, cgitb
+
+form = cgi.FieldStorage()
+login = form.getvalue('login')
+password = form.getvalue('password')
+
+if login == "admin" and password == "matfyzjein":
+    print """Content-type: text/html
 
 <head>
 
@@ -19,3 +26,6 @@ print """Content-type: text/html
 </form>
 
 </body>"""
+
+else:
+    print """Chyba!"""

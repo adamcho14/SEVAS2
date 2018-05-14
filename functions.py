@@ -4,7 +4,7 @@ import sqlite3
 
 # this function selects candidates from the database
 def select_candidates():
-    connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/candidates.sqlite")
+    connection = sqlite3.connect("db/persons.sqlite")
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM candidates")
     result = cursor.fetchall()
@@ -14,7 +14,7 @@ def select_candidates():
     return result
 
 def select_voters(login):
-    connection = sqlite3.connect("/Applications/PyCharm.app/Contents/bin/voting.sqlite")
+    connection = sqlite3.connect("db/persons.sqlite")
     cursor = connection.cursor()
     cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
     result = cursor.fetchall()

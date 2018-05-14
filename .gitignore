@@ -4,8 +4,10 @@
 *.xml
 *.iml
 *.idea
+*.txt
 obsolete
 _pycache_
 local/votes.txt
-
+shares*
+pkijs
 

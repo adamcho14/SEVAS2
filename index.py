@@ -18,8 +18,7 @@ print """Content-type: text/html
 <body>
 
 <p>Vitajte na stránkach volebného systému FMFI</p>
-<form method="post" action="https://login.uniba.sk">
-<input type="submit" value="Prihlásiť sa">
-</form>
+
+<a href=cosign/coslogin.php?backurl=/voting.py>Prihlásiť sa</a>
 </body>
 </html>"""

@@ -3,21 +3,21 @@
 
 import functions as f
 import config as c
-import cgi
-from os import environ
+import cgi, cgitb
+import os
 import rsa
 import base64
 
-#if True:
-if environ.has_key('REMOTE_USER'):
-    login = environ['REMOTE_USER']
+if True:
+#if os.environ.has_key('REMOTE_USER'):
+    #login = os.environ['REMOTE_USER']
+    login = "skuska"
 
-    with open('administration/public.pem', 'r') as public:
+    with open('administration/public.pem', 'rb') as public:
         data = public.read()
-    pubkey = rsa.PublicKey.load_pkcs1(base64.b64decode(data))
+    pubkey = rsa.PublicKey.load_pkcs1(data)
     encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
-
-    encryptedLogin = "skuska"
+    encryptedLogin = base64.b64encode(encryptedLogin)
 
     print """Content-type: text/html
 <html>

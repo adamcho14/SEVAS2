@@ -16,14 +16,14 @@ login = ""
   #      if key == "REMOTE_USER":
   #          login = value
 
-if environ.has_key('REMOTE_USER'):
-    login = environ['REMOTE_USER']
+#if environ.has_key('REMOTE_USER'):
+    #login = environ['REMOTE_USER']
 
 
 print """Content-type: text/html
 
-<form method="post" action="voting.py">
-<input type="text" name="login" placeholder="Log in" value ="%s" required>
+<form method="post" action="mock_voting.py">
+<input type="text" name="login" placeholder="Log in" value ="" required>
 <br/>
 <input type="submit" value="Submit">
-</form>""" % login
+</form>"""
