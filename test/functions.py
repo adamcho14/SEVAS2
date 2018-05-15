@@ -16,7 +16,7 @@ def select_candidates():
 def select_voters(login):
     connection = sqlite3.connect("db/persons.sqlite")
     cursor = connection.cursor()
-    cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
+    cursor.execute("SELECT COUNT(*) FROM voters WHERE UKLogin=?", (login,))
     result = cursor.fetchall()
 
     connection.close()

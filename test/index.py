@@ -20,6 +20,7 @@ print """Content-type: text/html
 <h1>Vitajte na stránkach volebného systému FMFI UK</h1>
 
 <form method="post" action="voting.py">
+<input type="text" name="login" placeholder="login" required>
 <input type="submit" name ="return" class="btn btn-primary" value="Prihlásiť sa">
 </form>
 </body>

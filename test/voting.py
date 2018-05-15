@@ -4,18 +4,21 @@
 import functions as f
 import config as c
 import cgi, cgitb
-import os
-import rsa
-import base64
+import sqlite3
 
-if True:
-    login = "skuska"
+form = cgi.FieldStorage()
+login = form.getvalue('login')
 
-    with open('administration/public.pem', 'rb') as public:
-        data = public.read()
-    pubkey = rsa.PublicKey.load_pkcs1(data)
-    encryptedLogin = rsa.encrypt(login.encode('utf8'), pubkey)
-    encryptedLogin = base64.b64encode(encryptedLogin)
+connection = sqlite3.connect("db/persons.sqlite")
+cursor = connection.cursor()
+cursor.execute("SELECT COUNT(*) FROM voters WHERE UKLogin=?", (login,))
+result = cursor.fetchall()
+connection.close()
+
+if result !=[(0,)]:
+
+    with open("login.txt", 'w') as file:
+        file.write(login)
 
     print """Content-type: text/html
 <html>
@@ -58,12 +61,14 @@ else:
 <head>
 
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 <body>
 <p>Nie ste platne prihlásení. Skúste to znova.</p>
 
-<form method="post" action="cosign/coslogin.php?backurl=/voting.py">
+<form method="post" action="voting.py">
+<input type="text" name="login" placeholder="login" required>
 <input type="submit" name ="return" class="btn btn-primary" value="Prihlásiť sa">
 </form>
 </body>
