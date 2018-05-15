@@ -4,19 +4,19 @@
 import json
 import sqlite3
 from M2Crypto import BIO, SMIME, X509
-import io
-import binascii
+#import io
+#import binascii
 
 CAND_NUM = 2
 
 
-def pkcs7pad(s):
-    s = s.encode('utf-8')
-    out = io.StringIO()
-    val = 16 - (len(s) % 16)
-    for _ in range(val):
-        out.write('%02x' % val)
-    return s + binascii.unhexlify(out.getvalue())
+#def pkcs7pad(s):
+    #s = s.encode('utf-8')
+    #out = io.StringIO()
+    #val = 16 - (len(s) % 16)
+    #for _ in range(val):
+        #out.write('%02x' % val)
+    #return s + binascii.unhexlify(out.getvalue())
 
 
 # this function selects candidates from the database
@@ -40,8 +40,12 @@ def decrypt(s):
     with open("tmp.p7", 'w') as f:
         #f.write(out.read())
         f.write(s)
-    p7, data = SMIME.smime_load_pkcs7("encrypt.p7")
-    return mime.decrypt(p7)
+    p7, data = SMIME.smime_load_pkcs7("tmp.p7")
+    try:
+        return mime.decrypt(p7)
+    except SMIME.PKCS7_Error as err:
+        print("Chyba pri dešifrovaní: " + str(err))
+        return "0"
 
 
 # this function creates a list out of given string
@@ -108,6 +112,8 @@ def get_values(l):
             j += 1
         if val == 1:
             num += 1
+        if (key in values) or (key not in candidates) or (val not in values):
+            print("Neplatný hlas: " + str(l))
         values[key] = val
         j += 2  # the first number after "<" ... need to jump "><"
 
@@ -118,15 +124,18 @@ def get_values(l):
 
 with open('votes.txt', 'r') as file:
     votes = json.load(file)  # creates a list of votes out of the json file
+    #print(votes[0][0])
 
 election_yes = {}
 election_no = {}
 election_dk = {}
 candidates = select_candidates()
+election_values = [1, 2, 3]
 vote_values = []  # list of dictionaries containing votes
 
 for i in votes:
-    new_vote = get_values(parse(decrypt(i[0])))
+    if i[0] != "0":
+        new_vote = get_values(parse(decrypt(i[0])))
     if new_vote != 0:
         vote_values.append(new_vote)
 

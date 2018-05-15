@@ -33,5 +33,8 @@ in any available Internet browser.
 * logging in using _Cosign_
 
 # What is to be done
+* configuration of _Apache 2_ server for logging in via `Cosign`
 * deployment in the structures of FMPH
 * features I can't remember while writing this
+
+You can find the structure of this project in `CONTENTS.md`.

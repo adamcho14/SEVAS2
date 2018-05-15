@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf-8
 
 import json
 import sqlite3
@@ -17,3 +18,4 @@ for v in result:
 with open('votes.txt', 'w') as file:
     json.dump(result, file)
 
+print("Transfer nastal")

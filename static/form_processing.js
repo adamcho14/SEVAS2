@@ -49,10 +49,9 @@ async function processForm(max) {
         return false;
     }
     var login = x["login"].value;
-    wipeOut(x);
+    wipeOut(x); //erases form data
     x["submit"].type = "submit";
     x["submit"].value = "Pošli hlas";
-    x["login"].value = login;
     await smimeEncrypt(createVote(x));
     return true;
 }

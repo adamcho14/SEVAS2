@@ -10,6 +10,7 @@ import base64
 
 if True:
 #if os.environ.has_key('REMOTE_USER'):
+#if 'REMOTE_USER' in os.environ:
     #login = os.environ['REMOTE_USER']
     login = "skuska"
 
@@ -44,7 +45,6 @@ if True:
     print(f.print_form_field(f.select_candidates()))
 
     print """
-<input type="hidden" name="login" value="%s">
 <input type="hidden" name="vote" value="0">
 <input type="hidden" name ="submit" value="">
 </form>

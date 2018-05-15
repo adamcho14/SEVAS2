@@ -13,14 +13,18 @@ while p > n:
     if p > n:
         print("Invalid input!")
 
-with open("certificate.pem", 'r') as f:
+with open("private_key.pem", 'r') as f:
     key = f.readlines()
 
 # every member of the commission is given a part of secret for every line of the key.
 # lines have to be reconstructed separately and put together to form the final key
 shares = []
 i = 0
+no_of_chars = []
 for l in key:
+    no_of_chars.append(len(l))
+    if i == 19:
+        print(l)
     shares.append(PlaintextToHexSecretSharer.split_secret(l, p, n))
     #print(shares[i])
     for j in range(n):
@@ -34,7 +38,9 @@ for l in key:
 
 with open("lines.txt", 'w') as lines:
     lines.write(str(p) + "\n")
-    lines.write(str(i))
+    lines.write(str(i) + "\n")
+    for line in no_of_chars:
+        lines.write(str(line) + "\n")
 
 print("Files share_i_j.txt are produced, "
       "where i is an ID "

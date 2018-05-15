@@ -6,7 +6,7 @@ import sqlite3
 
 
 def select_voters(login):
-    connection = sqlite3.connect("../db/persons.sqlite")
+    connection = sqlite3.connect("/Users/Adam/PycharmProjects/SEVAS/db/persons.sqlite")
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM voters WHERE login=?", (login,))
     result = cursor.fetchall()
@@ -16,35 +16,41 @@ def select_voters(login):
     return result
 
 form = cgi.FieldStorage()
-UKlogin = form.getvalue('login')
+login = form.getvalue('login')
 
-result = select_voters(UKlogin)
+result = select_voters(login)
 
 print """Content-type: text/html
 
-    <head>
+<html>
+<head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    </head>"""
+</head>
+
+<body>"""
 
 if len(result) == 0:
 
-    print """<body>
+    print """
 
-    <p>Chyba! Taký volič v databáze nie je</p>
-
-    </body>"""
+<p>Chyba! Taký volič v databáze nie je</p>"""
 
 else:
-    print """<body>
+    connection = sqlite3.connect("/Users/Adam/PycharmProjects/SEVAS/db/votes.sqlite")
+    cursor = connection.cursor()
+    cursor.execute("SELECT COUNT(*) FROM votes WHERE login=?", (login,))
+    result2 = cursor.fetchall()
+    if result2 == [(0,)]:
+        cursor.execute("INSERT INTO votes VALUES(?, 0)", (login,))
+    else:
+        cursor.execute("UPDATE votes SET vote = 0 WHERE login = ?", (login,))
+    connection.commit()
+    connection.close()
+    print
+    """<p>Úspešne ste zaregistrovali voliča.</p>"""
 
-    <p>Zaregistrujte voličovi %s papierový hlas</p>
-
-    <form method="post" action="../collection.py">
-    <input type="hidden" name="login" value="%s">
-    <input type="hidden" name="vote" value="0">
-    <input type="submit" value="Submit">
-    </form>
-
-    </body>""" % (UKlogin, UKlogin)
+print """
+</body>
+</html>"""
