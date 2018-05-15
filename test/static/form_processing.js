@@ -48,9 +48,11 @@ async function processForm(max) {
     if (!validateForm(x, max)) {
         return false;
     }
+    var vote = createVote(x);
     wipeOut(x); //erases form data
     x["submit"].type = "submit";
     x["submit"].value = "Pošli hlas";
+    x["vote"].value = vote;
     await smimeEncrypt(createVote(x));
     return true;
 }

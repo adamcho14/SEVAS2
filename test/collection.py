@@ -7,8 +7,8 @@ import rsa
 import base64
 import os
 
-if 'REMOTE_USER' in os.environ:
-    login = os.environ['REMOTE_USER']
+if True:
+    login = "skuska"
 
     form = cgi.FieldStorage()
     vote = form.getvalue('vote')

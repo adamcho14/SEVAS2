@@ -19,7 +19,7 @@ print """Content-type: text/html
 
 <h1>Vitajte na stránkach volebného systému FMFI UK</h1>
 
-<form method="post" action="cosign/coslogin.php?backurl=/voting.py">
+<form method="post" action="voting.py">
 <input type="submit" name ="return" class="btn btn-primary" value="Prihlásiť sa">
 </form>
 </body>

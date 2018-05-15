@@ -22,17 +22,18 @@ def select_candidates():
 
 
 def decrypt(s):
-    mime = SMIME.SMIME()
+    #mime = SMIME.SMIME()
 
-    mime.load_key('priv.pem', 'cert.pem')
-    with open("tmp.p7", 'w') as f:
-        f.write(s)
-    p7, data = SMIME.smime_load_pkcs7("tmp.p7")
-    try:
-        return mime.decrypt(p7)
-    except SMIME.PKCS7_Error as err:
-        print("Chyba pri dešifrovaní: " + str(err))
-        return "0"
+    #mime.load_key('priv.pem', 'cert.pem')
+    #with open("tmp.p7", 'w') as f:
+        #f.write(s)
+    #p7, data = SMIME.smime_load_pkcs7("tmp.p7")
+    #try:
+        #return mime.decrypt(p7)
+    #except SMIME.PKCS7_Error as err:
+        #print("Chyba pri dešifrovaní: " + str(err))
+        #return "0"
+        return s
 
 
 # this function creates a list out of given string

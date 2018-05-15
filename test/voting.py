@@ -8,8 +8,8 @@ import os
 import rsa
 import base64
 
-if 'REMOTE_USER' in os.environ:
-    login = os.environ['REMOTE_USER']
+if True:
+    login = "skuska"
 
     with open('administration/public.pem', 'rb') as public:
         data = public.read()
@@ -24,7 +24,7 @@ if 'REMOTE_USER' in os.environ:
 <meta charset="UTF-8">
 <title>Hlasovanie</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script type="text/javascript" src="static/conf.js"></script>
+<script type="text/javascript" src="static/conf.js">
 <script type="text/javascript" src="static/pkijs/addressparser.js"></script>
 <script type="text/javascript" src="static/pkijs/mimeparser-tzabbr.js"></script>
 <script type="text/javascript" src="static/pkijs/mimeparser.js"></script>
