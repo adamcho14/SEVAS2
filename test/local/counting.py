@@ -2,8 +2,7 @@
 # coding: utf-8
 
 import json
-import sqlite3
-from M2Crypto import BIO, SMIME, X509
+import sys
 import config as can_n
 
 CAND_NUM = can_n.CAND_NUM
@@ -11,14 +10,11 @@ CAND_NUM = can_n.CAND_NUM
 
 # this function selects candidates from the database
 def select_candidates():
-    connection = sqlite3.connect("../db/persons.sqlite")
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM candidates")
-    result = cursor.fetchall()
-
-    connection.close()
-
-    return result
+    try:
+        with open('candidates.txt', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        sys.exit("Požadovaný súbor candidates.txt sa nenašiel")
 
 
 def decrypt(s):
@@ -114,8 +110,11 @@ def get_values(l):
 
     return values
 
-with open('votes.txt', 'r') as file:
-    votes = json.load(file)  # creates a list of votes out of the json file
+try:
+    with open('votes.txt', 'r') as file:
+        votes = json.load(file)  # creates a list of votes out of the json file
+except FileNotFoundError:
+    sys.exit("Požadovaný súbor votes.txt sa nenašiel")
 
 election_yes = {}
 election_no = {}
@@ -127,8 +126,8 @@ vote_values = []  # list of dictionaries containing votes
 for i in votes:
     if i[0] != "0":
         new_vote = get_values(parse(decrypt(i[0])))
-    if new_vote != 0:
-        vote_values.append(new_vote)
+        if new_vote != 0:
+            vote_values.append(new_vote)
 
 for c in candidates:
     election_yes[c[0]] = 0

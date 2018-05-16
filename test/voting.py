@@ -11,7 +11,7 @@ login = form.getvalue('login')
 
 connection = sqlite3.connect("db/persons.sqlite")
 cursor = connection.cursor()
-cursor.execute("SELECT COUNT(*) FROM voters WHERE UKLogin=?", (login,))
+cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
 result = cursor.fetchall()
 connection.close()
 

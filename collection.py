@@ -7,15 +7,17 @@ import rsa
 import base64
 import os
 
-if 'REMOTE_USER' in os.environ:
-    login = os.environ['REMOTE_USER']
+#if 'REMOTE_USER' in os.environ:
+    #login = os.environ['REMOTE_USER']
+if True:
+    login = "skuska"
 
     form = cgi.FieldStorage()
     vote = form.getvalue('vote')
 
     connection = sqlite3.connect("db/persons.sqlite")
     cursor = connection.cursor()
-    cursor.execute("SELECT COUNT(*) FROM voters WHERE UKLogin=?", (login,))
+    cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
     result = cursor.fetchall()
     connection.close()
 
@@ -36,18 +38,18 @@ if 'REMOTE_USER' in os.environ:
     if result != [(0,)]:
         connection = sqlite3.connect("db/votes.sqlite")
         cursor = connection.cursor()
-        cursor.execute("SELECT COUNT(*) FROM votes WHERE UKLogin=?", (login,))
+        cursor.execute("SELECT COUNT(*) FROM votes WHERE login=?", (login,))
         result2 = cursor.fetchall()
         if result2 == [(0,)]:
-            cursor.execute("INSERT INTO votes VALUES(?, ?)", (login, vote,))
+            cursor.execute("INSERT INTO votes (login, vote) VALUES(?, ?)", (login, vote,))
             sent = True
         else:
-            cursor.execute("SELECT CASE WHEN vote=0 THEN 0 ELSE 1 END FROM votes WHERE UKLogin=?", (login,))
+            cursor.execute("SELECT CASE WHEN vote=0 THEN 0 ELSE 1 END FROM votes WHERE login=?", (login,))
             result3 = cursor.fetchall()
             if result3 ==[(0,)]:
                 print """Už ste hlasovali papierovo. Nemožno už hlasovať elektronicky."""
             else:
-                cursor.execute("UPDATE votes SET vote = ? WHERE UKLogin = ?", (vote, login,))
+                cursor.execute("UPDATE votes SET vote = ? WHERE login = ?", (vote, login,))
                 sent = True
         connection.commit()
         if sent:

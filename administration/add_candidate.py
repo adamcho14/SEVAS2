@@ -15,7 +15,10 @@ while cont:
     result = cursor.fetchall()
 
     if result == [(0,)]:
-        cursor.execute("INSERT INTO candidates (first_name, last_name) VALUES(?,?)", (name,surname,))
+        cursor.execute("SELECT COUNT(*) FROM candidates")
+        result2 = cursor.fetchall()
+        noc = result2[0][0] + 1
+        cursor.execute("INSERT INTO candidates VALUES(?,?,?)", (noc,name,surname,))
         print("Kandidát pridaný.")
         connection.commit()
     else:

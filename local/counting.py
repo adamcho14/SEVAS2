@@ -2,38 +2,31 @@
 # coding: utf-8
 
 import json
-import sqlite3
 from M2Crypto import BIO, SMIME, X509
 import config as can_n
+import sys
+import gnupg
 
 CAND_NUM = can_n.CAND_NUM
 
 
 # this function selects candidates from the database
 def select_candidates():
-    connection = sqlite3.connect("../db/persons.sqlite")
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM candidates")
-    result = cursor.fetchall()
-
-    connection.close()
-
-    return result
+    try:
+        with open('candidates.txt', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        sys.exit("Požadovaný súbor candidates.txt sa nenašiel")
 
 
 def decrypt(s):
-    mime = SMIME.SMIME()
-
-    mime.load_key('priv.pem', 'cert.pem')
-    with open("tmp.p7", 'w') as f:
-        f.write(s)
-    p7, data = SMIME.smime_load_pkcs7("tmp.p7")
-    try:
-        return mime.decrypt(p7)
-    except SMIME.PKCS7_Error as err:
-        print("Chyba pri dešifrovaní: " + str(err))
-        return "0"
-
+    gpg = gnupg.GPG()
+    with open("privkey.pem", 'r') as file:
+         my_key = file.read()
+    import_result = gpg.import_keys(my_key)
+    data = gpg.decrypt(s)
+    print(data)
+    return data
 
 # this function creates a list out of given string
 def parse(s):
@@ -113,8 +106,12 @@ def get_values(l):
 
     return values
 
-with open('votes.txt', 'r') as file:
-    votes = json.load(file)  # creates a list of votes out of the json file
+try:
+    with open('votes.txt', 'r') as file:
+        votes = json.load(file)  # creates a list of votes out of the json file
+except FileNotFoundError:
+    sys.exit("Požadovaný súbor votes.txt sa nenašiel")
+
 
 election_yes = {}
 election_no = {}
@@ -126,8 +123,8 @@ vote_values = []  # list of dictionaries containing votes
 for i in votes:
     if i[0] != "0":
         new_vote = get_values(parse(decrypt(i[0])))
-    if new_vote != 0:
-        vote_values.append(new_vote)
+        if new_vote != 0:
+            vote_values.append(new_vote)
 
 for c in candidates:
     election_yes[c[0]] = 0

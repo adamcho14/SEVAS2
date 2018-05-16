@@ -46,7 +46,3 @@ and providing the election certificate, and _PKI.js_ library files
 
 * `test` this is the test implementation of the system
 without _S/MIME_ encryption and _Cosign_ authentication.
-We met a problem while decrypting the votes 
-because we got `bad decrypt` error. We are still working
-on its solution. Please, use the test version of the program
-to test its other features.

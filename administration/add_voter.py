@@ -10,7 +10,7 @@ while cont:
     login = input("Login voliča: ")
 
     cursor = connection.cursor()
-    cursor.execute("SELECT COUNT(*) FROM voters WHERE UKLogin=?", (login,))
+    cursor.execute("SELECT COUNT(*) FROM voters WHERE login=?", (login,))
     result = cursor.fetchall()
 
     if result == [(0,)]:

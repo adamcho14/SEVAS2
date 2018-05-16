@@ -8,8 +8,10 @@ import os
 import rsa
 import base64
 
-if 'REMOTE_USER' in os.environ:
-    login = os.environ['REMOTE_USER']
+#if 'REMOTE_USER' in os.environ:
+    #login = os.environ['REMOTE_USER']
+if True:
+    login = "skuska"
 
     with open('administration/public.pem', 'rb') as public:
         data = public.read()
@@ -25,15 +27,7 @@ if 'REMOTE_USER' in os.environ:
 <title>Hlasovanie</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script type="text/javascript" src="static/conf.js"></script>
-<script type="text/javascript" src="static/pkijs/addressparser.js"></script>
-<script type="text/javascript" src="static/pkijs/mimeparser-tzabbr.js"></script>
-<script type="text/javascript" src="static/pkijs/mimeparser.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-mime-codec.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-mime-types.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-addressparser.js"></script>
-<script type="text/javascript" src="static/pkijs/punycode.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-mime-builder.js"></script>
-<script type="text/javascript" src="static/pkijs/SMIMEEncryptionExample.js"></script>
+<script type="text/javascript" src="static/dist/openpgp.min.js"></script>
 <script type="text/javascript" src="static/form_processing.js">
 </script>
 </head>
