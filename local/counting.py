@@ -25,8 +25,7 @@ def decrypt(s):
          my_key = file.read()
     import_result = gpg.import_keys(my_key)
     data = gpg.decrypt(s)
-    print(data)
-    return data
+    return str(data)
 
 # this function creates a list out of given string
 def parse(s):

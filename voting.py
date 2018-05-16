@@ -8,10 +8,10 @@ import os
 import rsa
 import base64
 
-#if 'REMOTE_USER' in os.environ:
-    #login = os.environ['REMOTE_USER']
-if True:
-    login = "skuska"
+if 'REMOTE_USER' in os.environ:
+    login = os.environ['REMOTE_USER']
+#if True:
+    #login = "jozko"
 
     with open('administration/public.pem', 'rb') as public:
         data = public.read()

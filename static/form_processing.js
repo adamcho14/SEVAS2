@@ -88,7 +88,7 @@ async function processForm(max) {
     if (!validateForm(x, max)) {
         return false;
     }
-    wipeOut(x); //erases form data
+    //wipeOut(x); //erases form data
     x["submit"].type = "submit";
     x["submit"].value = "Pošli hlas";
     //await smimeEncrypt(createVote(x));

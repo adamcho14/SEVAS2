@@ -10,7 +10,7 @@ import os
 #if 'REMOTE_USER' in os.environ:
     #login = os.environ['REMOTE_USER']
 if True:
-    login = "skuska"
+    login = "jozko"
 
     form = cgi.FieldStorage()
     vote = form.getvalue('vote')
