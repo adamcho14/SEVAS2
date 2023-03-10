@@ -3,14 +3,10 @@
 
 import cgi
 import sqlite3
-import rsa
-import base64
 import os
 
-#if 'REMOTE_USER' in os.environ:
-    #login = os.environ['REMOTE_USER']
-if True:
-    login = "jozko"
+if 'REMOTE_USER' in os.environ:
+    login = os.environ['REMOTE_USER']
 
     form = cgi.FieldStorage()
     vote = form.getvalue('vote')
@@ -57,7 +53,7 @@ if True:
     <textarea rows="10" cols="50" id="display_vote">%s</textarea>""" % vote
 
     else:
-        print """Prepáč, ale nemôžeš hlasovať. Ak si myslíš, že to je chyba, prosím, obráť sa na Lampáreň!"""
+        print """Prepáč, ale nemôžeš hlasovať."""
 
     connection.close()
 

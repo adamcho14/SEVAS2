@@ -27,16 +27,7 @@ if result !=[(0,)]:
 <meta charset="UTF-8">
 <title>Hlasovanie</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script type="text/javascript" src="static/conf.js">
-<script type="text/javascript" src="static/pkijs/addressparser.js"></script>
-<script type="text/javascript" src="static/pkijs/mimeparser-tzabbr.js"></script>
-<script type="text/javascript" src="static/pkijs/mimeparser.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-mime-codec.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-mime-types.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-addressparser.js"></script>
-<script type="text/javascript" src="static/pkijs/punycode.js"></script>
-<script type="text/javascript" src="static/pkijs/emailjs-mime-builder.js"></script>
-<script type="text/javascript" src="static/pkijs/SMIMEEncryptionExample.js"></script>
+<script type="text/javascript" src="static/dist/openpgp.min.js"></script>
 <script type="text/javascript" src="static/form_processing.js">
 </script>
 </head>
@@ -44,7 +35,7 @@ if result !=[(0,)]:
 
 <h1> %s, vitajte vo volebnej aplikácii</h1>
 <h2>Zvoľte maximálne %s kandidátov</h2>
-<form name="voting" method="post" action="collection.py">""" % (login, str(c.CAND_NUM))
+<form name="voting" method="post" action="test_collection.py">""" % (login, str(c.CAND_NUM))
     print(f.print_form_field(f.select_candidates()))
 
     print """<input type="hidden" name="vote" value="0">

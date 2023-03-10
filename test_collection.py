@@ -56,16 +56,20 @@ if True:
     <textarea rows="10" cols="50" id="display_vote">%s</textarea>""" % vote
 
     else:
-        print """Prepáč, ale nemôžeš hlasovať. Ak si myslíš, že to je chyba, prosím, obráť sa na Lampáreň!"""
+        print """Prepáč, ale nemôžeš hlasovať."""
 
     connection.close()
 
 
     print """<br>
-<a href=cosign/coslogout.php?backurl=/index.py>Odhlásiť sa</a>
+<form method="post" action=“test_index.py">
+<input type="submit" name ="return" class="btn btn-primary" value="Odhlásiť sa">
+</form>
 </body>
 
 </html>"""
+
+    open("login.txt", 'w').close()
 
 else:
     print
